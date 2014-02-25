@@ -1,0 +1,6 @@
+User-agent: *
+<<<<<<< HEAD
+Sitemap: http://seo-sample-hashbang.azurewebsites.net/sitemap.xml
+=======
+Sitemap: http://seo-sample.azurewebsites.net/sitemap.xml
+>>>>>>> 72cf8d39103f9970db9eabd75aedd9bc209052b9
