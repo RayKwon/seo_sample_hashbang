@@ -32,15 +32,16 @@ app.delete('/api/posts/:post_id', post.deletePost);
 
 /* Render page for SEO spider */
 var isCrawler = function(req, res, next) {
+  console.dir(req.query);
   if (req.query.hasOwnProperty('_escaped_fragment_')) {
   	var query = req.query._escaped_fragment_;
   	var queryArray = query.split('/');
-
-  	if (queryArray[0] === 'posts') {
-	  	if (queryArray.length === 1){
+    console.log(queryArray.length);
+  	if (queryArray[1] === 'posts') {
+	  	if (queryArray.length === 2){
 	 			post.renderPostList(req, res);
-	  	}else if (queryArray.length === 2) {
-	  		var options = { post_id : queryArray[1] };
+	  	}else if (queryArray.length === 3) {
+	  		var options = { post_id : queryArray[2] };
   			post.renderPostDetail(req, res, options);
 	  	}else{
 	  		next();
@@ -68,24 +69,6 @@ app.get('/sitemap.xml', function(req, res) {
     urls: [
       { url: '',  changefreq: 'daily'},
       { url: '/#!/posts',  changefreq: 'daily'}
-    ]
-  });
-
-  sitemap.toXML( function (xml) {
-      res.header('Content-Type', 'application/xml');
-      res.send( xml );
-  });
-});
-
-app.get('/sitemap.xml', function(req, res) {
-  var fullURL = req.protocol + "://" + req.get('host');
-
-  var sitemap = sm.createSitemap ({
-    hostname: fullURL,
-    cacheTime: 600000,
-    urls: [
-      { url: '',  changefreq: 'daily'},
-      { url: '/posts',  changefreq: 'daily'}
     ]
   });
 
